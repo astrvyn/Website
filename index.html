@@ -67,12 +67,16 @@
             text-shadow: 2px 2px 5px rgba(201, 148, 142, 255);
         }
 
+        .center-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: fit-content;
+        }
+
         .center-card {
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             background: #c9958e00;
             padding: 20px 30px;
             border-radius: 10px;
@@ -82,11 +86,9 @@
             text-align: center;
             max-width: 600px;
             width: 90%;
-
             display: flex;
             align-items: flex-start;
             gap: 20px;
-            height: auto;
             min-height: 150px;
         }
 
@@ -241,32 +243,29 @@
         }
 
         .icon-container {
+            position: absolute;
+            bottom: -60px;
+            left: 58%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 510px;
-            width: 20%;
-            margin-left: -60px;
+            gap: 20px;
         }
 
         .icon {
-            width: 20px;
-            height: 20px;
+            width: 180px;
+            height: 50px;
             transition: transform 0.3s ease, opacity 0.3s ease;
             cursor: pointer;
             position: relative;
             filter: invert(100%);
-            transform-origin: center;
         }
+
 
         .icon img {
             width: 80px;
             height: 80px;
             object-fit: contain;
             display: block;
-            margin: 0;
-            padding: 0;
-            transform-origin: center;
         }
 
         .icon:hover {
@@ -400,24 +399,24 @@
 
             const peopleData = {
                 person1: {
-                    name: "Bobby",
-                    info: "Bobby is my closest friend, she's amazing."
+                    name: "Alice",
+                    info: "Alice loves reading books and painting."
                 },
                 person2: {
-                    name: "Zai",
-                    info: "He thinks he's Sonic..?"
+                    name: "Bob",
+                    info: "Bob is a gamer and a coffee enthusiast."
                 },
                 person3: {
-                    name: "illy",
-                    info: "He helped code some of this website."
+                    name: "Charlie",
+                    info: "Charlie enjoys hiking and outdoor adventures."
                 },
                 person4: {
-                    name: "Banged",
-                    info: "Better than me at valorant.."
+                    name: "Daisy",
+                    info: "Daisy is passionate about photography."
                 },
                 person5: {
-                    name: "Ice",
-                    info: "He wanted to be on the website."
+                    name: "Eve",
+                    info: "Eve is a tech enthusiast and loves coding."
                 }
             };
 
@@ -502,11 +501,11 @@
         </div>
         <div class="menu-content">
             <ul>
-                <li data-person="person1">Bobby</li>
-                <li data-person="person2">Zai</li>
-                <li data-person="person3">illy</li>
-                <li data-person="person4">Banged</li>
-                <li data-person="person5">Ice</li>
+                <li data-person="person1">Person 1</li>
+                <li data-person="person2">Person 2</li>
+                <li data-person="person3">Person 3</li>
+                <li data-person="person4">Person 4</li>
+                <li data-person="person5">Person 5</li>
             </ul>
         </div>
     </div>
@@ -517,32 +516,33 @@
             <p id="person-info"></p>
         </div>
     </div>
-    </div>
-    <div class="center-card">
-        <div class="ribbon-text">୨୧</div>
-        <img class="me-icon" src="me-icon.gif" alt="Amouree">
-        <div class="card-content">
-            <h1>Read Me.</h1>
-            <p>She/Her. This website took 2 hours. EST timezone.</p>
-            <p>Hi Bobby, Hi Zai, Hi Ice, Hi Banged, Hi illy.</p>
-        </div>
-    </div>
 
-    <div class="icon-container">
-        <div class="icon">
-            <img src="roblox.svg" alt="Roblox" />
-            <div class="icon-tooltip">Username: l0vs1p</div>
+    <div class="center-wrapper">
+        <div class="center-card">
+            <div class="ribbon-text">୨୧</div>
+            <img class="me-icon" src="me-icon.gif" alt="Amouree">
+            <div class="card-content">
+                <h1>Read Me.</h1>
+                <p>She/Her. This website took 2 hours. Thank you for reading this</p>
+                <p>Hi Bobby, Hi Zai, Hi Ice, Hi Banged, Hi illy.</p>
+            </div>
         </div>
-        <div class="icon">
-            <img src="fortnite.svg" alt="Fortnite" />
-            <div class="icon-tooltip">Username: SleepyPlatinum</div>
-        </div>
-        <div class="icon">
-            <img src="valorant.svg" alt="Valorant" />
-            <div class="icon-tooltip">Username: AmoureeXO</div>
+
+        <div class="icon-container">
+            <div class="icon">
+                <img src="roblox.svg" alt="Roblox" />
+                <div class="icon-tooltip">Username: l0vs1p</div>
+            </div>
+            <div class="icon">
+                <img src="fortnite.svg" alt="Fortnite" />
+                <div class="icon-tooltip">Username: SleepyPlatinum</div>
+            </div>
+            <div class="icon">
+                <img src="valorant.svg" alt="Valorant" />
+                <div class="icon-tooltip">Username: AmoureeXO</div>
+            </div>
         </div>
     </div>
-
 
     <div class="credit-card">
         Made by .amouree.☆
