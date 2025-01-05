@@ -183,6 +183,63 @@
             letter-spacing: -6px;
         }
 
+        .hamburger-icon {
+            --c: #834856;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            height: 40px;
+            aspect-ratio: 1;
+            background:
+                radial-gradient(closest-side at 12.5% 25%, var(--c) 97%, #0000 101%) 0 0/80% 40%,
+                linear-gradient(var(--c) 50%, #0000 0) top/80% 40% repeat-y;
+        }
+
+        .hamburger-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+
+
+        .menu-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: none;
+            flex-direction: column;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-content h1 {
+            margin: 0;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .menu-content ul li {
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: color 0.3s ease;
+        }
+
+        .menu-content ul li:hover {
+            color: #c9958e;
+        }
+
         .icon-container {
             display: flex;
             justify-content: space-between;
@@ -260,6 +317,26 @@
             visibility: visible;
             transform: translateX(-50%) translateY(-5px);
         }
+
+        .person-card {
+            position: fixed;
+            top: 50%;
+            right: -400px;
+            transform: translateY(-50%);
+            width: 300px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.5);
+            color: white;
+            transition: right 0.5s ease;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .person-card.show {
+            right: 20px;
+        }
     </style>
 
     <script>
@@ -313,6 +390,103 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const menuItems = document.querySelectorAll(".menu-content ul li");
+            const personCard = document.getElementById("person-card");
+            const personName = document.getElementById("person-name");
+            const personInfo = document.getElementById("person-info");
+
+            const peopleData = {
+                person1: {
+                    name: "Bobby",
+                    info: "Bobby is my closest friend, she's amazing."
+                },
+                person2: {
+                    name: "Zai",
+                    info: "He thinks he's Sonic..?"
+                },
+                person3: {
+                    name: "illy",
+                    info: "He helped code some of this website."
+                },
+                person4: {
+                    name: "Banged",
+                    info: "Better than me at valorant.."
+                },
+                person5: {
+                    name: "Ice",
+                    info: "He wanted to be on the website."
+                }
+            };
+
+            let activePerson = null;
+            let isTransitioning = false;
+
+            menuItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    if (isTransitioning) return;
+
+                    const personKey = item.getAttribute("data-person");
+
+                    if (activePerson === personKey) {
+                        personCard.classList.remove("show");
+                        activePerson = null;
+                    } else {
+                        if (activePerson) {
+                            isTransitioning = true;
+                            personCard.classList.remove("show");
+
+                            setTimeout(() => {
+                                const person = peopleData[personKey];
+                                if (person) {
+                                    personName.textContent = person.name;
+                                    personInfo.textContent = person.info;
+                                }
+
+                                personCard.classList.add("show");
+                                activePerson = personKey;
+                                isTransitioning = false;
+                            }, 500);
+                        } else {
+                            const person = peopleData[personKey];
+                            if (person) {
+                                personName.textContent = person.name;
+                                personInfo.textContent = person.info;
+                            }
+                            personCard.classList.add("show");
+                            activePerson = personKey;
+                        }
+                    }
+                });
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".person-card") && !e.target.closest(".menu-content")) {
+                    personCard.classList.remove("show");
+                    activePerson = null;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerIcon = document.querySelector(".hamburger-icon");
+            const menuContent = document.querySelector(".menu-content");
+
+            hamburgerIcon.addEventListener("click", () => {
+                menuContent.style.display = menuContent.style.display === "flex" ? "none" : "flex";
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".hamburger-menu")) {
+                    menuContent.style.display = "none";
+                }
+            });
+        });
+    </script>
 </head>
 
 <body class="content">
@@ -320,12 +494,36 @@
     <h2>About me.</h2>
     <h2>✦</h2>
     <div id="star-container"></div>
+    <div class="hamburger-menu">
+        <div class="hamburger-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu-content">
+            <ul>
+                <li data-person="person1">Bobby</li>
+                <li data-person="person2">Zai</li>
+                <li data-person="person3">illy</li>
+                <li data-person="person4">Banged</li>
+                <li data-person="person5">Ice</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="person-card" id="person-card">
+        <div class="card-content">
+            <h1 id="person-name"></h1>
+            <p id="person-info"></p>
+        </div>
+    </div>
+    </div>
     <div class="center-card">
         <div class="ribbon-text">୨୧</div>
         <img class="me-icon" src="me-icon.gif" alt="Amouree">
         <div class="card-content">
             <h1>Read Me.</h1>
-            <p>She/Her. This website took 2 hours. Thank you for reading this</p>
+            <p>She/Her. This website took 2 hours. EST timezone.</p>
             <p>Hi Bobby, Hi Zai, Hi Ice, Hi Banged, Hi illy.</p>
         </div>
     </div>
@@ -345,7 +543,7 @@
         </div>
     </div>
 
-    
+
     <div class="credit-card">
         Made by .amouree.☆
     </div>
